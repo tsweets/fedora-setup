@@ -91,6 +91,10 @@
 #  until: flatpak_flathub_result is succeeded
 #  become: true
 
+# There might a be a bug in the flatpack module have to do it manually
+- name: Add flathub flatpak
+  shell:  flatpak remote-add --system flathub https://dl.flathub.org/repo/flathub.flatpakrepo
+
 
 - name: Add Visual Studio Code Repo
   yum_repository:

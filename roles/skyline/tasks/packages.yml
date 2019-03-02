@@ -2,8 +2,38 @@
   dnf:
     name: code
     state: latest
+  retries: "{{ task_retries }}"
+  delay: "{{ task_delay }}"
 
 - name: Install Google Chrome
   dnf:
     name: google-chrome-stable
+    state: latest
+  retries: "{{ task_retries }}"
+  delay: "{{ task_delay }}"
+
+- name: Install Steam
+  dnf:
+    name: steam
+    state: installed
+  retries: "{{ task_retries }}"
+  delay: "{{ task_delay }}"
+
+- name: Install Lollypop Music Player
+  dnf:
+    name: lollypop
+    state: latest
+  retries: "{{ task_retries }}"
+  delay: "{{ task_delay }}"
+
+- name: Install Tilix Terminal
+  dnf:
+    name: tilix
+    state: latest
+  retries: "{{ task_retries }}"
+  delay: "{{ task_delay }}"
+
+- name: Install Screenfetch
+  dnf: 
+    name: screenfetch
     state: latest
