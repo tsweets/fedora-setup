@@ -1,0 +1,10 @@
+---
+- include: repos.yml
+- include: packages.yml
+- include: system.yml
+- include: lookandfeel-gnome.yml
+
+
+- name: Completed Message
+  debug:
+    msg: Complete! Please Reboot

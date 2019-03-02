@@ -1,0 +1,9 @@
+- name: Install Visual Studio Code
+  dnf:
+    name: code
+    state: latest
+
+- name: Install Google Chrome
+  dnf:
+    name: google-chrome-stable
+    state: latest

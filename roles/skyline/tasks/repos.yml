@@ -1,0 +1,100 @@
+---
+# Add external repos
+- name: Activate Fedora Workstation repositories
+  dnf:
+    name: fedora-workstation-repositories
+    state: present
+  register: dnf_fedora_repos_result
+  retries: "{{ task_retries }}"
+  delay: "{{ task_delay }}"
+  until: dnf_fedora_repos_result is succeeded
+  become: true
+
+- name: Enable Google Chrome repo
+  ini_file:
+    dest: /etc/yum.repos.d/google-chrome.repo
+    section: google-chrome
+    option: enabled
+    value: 1
+  become: true
+
+- name: Enable RPMFusion NVIDIA repo
+  ini_file:
+    dest: /etc/yum.repos.d/rpmfusion-nonfree-nvidia-driver.repo
+    section: rpmfusion-nonfree-nvidia-driver
+    option: enabled
+    value: 1
+  become: true
+
+- name: Enable RPMFusion Steam repo
+  ini_file:
+    dest: /etc/yum.repos.d/rpmfusion-nonfree-steam.repo
+    section: rpmfusion-nonfree-steam
+    option: enabled
+    value: 1
+  become: true
+
+# Import RPMFusion GPG keys
+- name: Import RPMFusion Free GPG key
+  rpm_key:
+    key: "{{ rpmfusion_free_key }}"
+    state: present
+  register: rpm_key_rpmfusion_free_result
+  retries: "{{ task_retries }}"
+  delay: "{{ task_delay }}"
+  until: rpm_key_rpmfusion_free_result is succeeded
+  become: true
+
+- name: Import RPMFusion Nonfree GPG key
+  rpm_key:
+    key: "{{ rpmfusion_nonfree_key }}"
+    state: present
+  register: rpm_key_rpmfusion_nonfree_result
+  retries: "{{ task_retries }}"
+  delay: "{{ task_delay }}"
+  until: rpm_key_rpmfusion_nonfree_result is succeeded
+  become: true
+
+# Enable RPMFusion repos
+- name: Install RPMFusion free release RPM
+  dnf:
+    name: "{{ rpmfusion_free_rpm }}"
+    state: present
+  register: dnf_rpmfusion_free_result
+  retries: "{{ task_retries }}"
+  delay: "{{ task_delay }}"
+  until: dnf_rpmfusion_free_result is succeeded
+  become: true
+
+- name: Install RPMFusion nonfree release RPM
+  dnf:
+    name: "{{ rpmfusion_nonfree_rpm }}"
+    state: present
+  register: dnf_rpmfusion_nonfree_result
+  retries: "{{ task_retries }}"
+  delay: "{{ task_delay }}"
+  until: dnf_rpmfusion_nonfree_result is succeeded
+  become: true
+
+
+#- name: Add flathub flatpak
+#  flatpak_remote:
+#    name: flathub
+#    state: present
+#    flatpakrepo_url: "{{ flatpak_repo }}"
+#    method: system
+#  ignore_errors: true
+#  changed_when: false
+#  register: flatpak_flathub_result
+#  retries: "{{ task_retries }}"
+#  delay: "{{ task_delay }}"
+#  until: flatpak_flathub_result is succeeded
+#  become: true
+
+
+- name: Add Visual Studio Code Repo
+  yum_repository:
+    name: vscode
+    description: Visual Studio Code repo
+    baseurl: https://packages.microsoft.com/yumrepos/vscode
+
