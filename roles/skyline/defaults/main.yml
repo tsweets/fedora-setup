@@ -46,12 +46,19 @@ korora_shell_extensions:
     - openweather-extension@jenslody.de
     - dash-to-dock@micxgx.gmail.com
     - workspaces-to-dock@passingthru67.gmail.com
+    - TopIcons@phocean.net
+    - mediaplayer@patapon.info/schemas
   install:
     - gnome-shell-extension-dash-to-dock
     - gnome-shell-extension-drive-menu
     - gnome-shell-extension-openweather
     - gnome-shell-extension-places-menu
     - gnome-shell-extension-user-theme
+    - gnome-shell-extension-topicons-plus
+# Fedora mush have bug,its missing a file - need to run 
+# sudo glib-compile-schemas .
+#/usr/share/gnome-shell/extensions/mediaplayer@patapon.info/schemas
+    - gnome-shell-extension-media-player-indicator
 korora_shell_favourites_defaults:
   apps:
     - firefox.desktop
