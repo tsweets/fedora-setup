@@ -342,3 +342,14 @@ korora_packages_common:
     - system-config-language
     - system-config-services
     - system-config-users
+    - docker
+    - docker-client
+    - docker-client-latest
+    - docker-common
+    - docker-latest
+    - docker-latest-logrotate
+    - docker-logrotate
+    - docker-selinux
+    - docker-engine-selinux
+    - docker-engine
+

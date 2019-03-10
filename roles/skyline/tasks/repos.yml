@@ -77,23 +77,24 @@
   become: true
 
 
-#- name: Add flathub flatpak
-#  flatpak_remote:
-#    name: flathub
-#    state: present
-#    flatpakrepo_url: "{{ flatpak_repo }}"
-#    method: system
-#  ignore_errors: true
-#  changed_when: false
-#  register: flatpak_flathub_result
-#  retries: "{{ task_retries }}"
-#  delay: "{{ task_delay }}"
-#  until: flatpak_flathub_result is succeeded
-#  become: true
+- name: Add flathub flatpak
+  flatpak_remote:
+    name: flathub
+    state: present
+    flatpakrepo_url: "{{ flatpak_repo }}"
+    method: system
+  ignore_errors: true
+  changed_when: false
+  register: flatpak_flathub_result
+  retries: "{{ task_retries }}"
+  delay: "{{ task_delay }}"
+  until: flatpak_flathub_result is succeeded
+  become: true
 
 # There might a be a bug in the flatpack module have to do it manually
-- name: Add flathub flatpak
-  shell:  flatpak remote-add --system flathub https://dl.flathub.org/repo/flathub.flatpakrepo
+# Note this, only works once (not idempotent)
+#- name: Add flathub flatpak
+#  shell:  flatpak remote-add --system flathub https://dl.flathub.org/repo/flathub.flatpakrepo
 
 
 - name: Add Visual Studio Code Repo
@@ -102,3 +103,9 @@
     description: Visual Studio Code repo
     baseurl: https://packages.microsoft.com/yumrepos/vscode
 
+
+- name: Add Docker CE Repo
+  yum_repository:
+    name: docker-ce
+    description: Docker CE repo
+    baseurl: https://download.docker.com/linux/fedora/$releasever/$basearch/stable

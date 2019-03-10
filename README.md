@@ -1,2 +1,2 @@
 Run with:
-ansible-playbook -k playbook.yml
+ansible-playbook -K playbook.yml
