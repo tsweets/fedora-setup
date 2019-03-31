@@ -109,3 +109,5 @@
     name: docker-ce
     description: Docker CE repo
     baseurl: https://download.docker.com/linux/fedora/$releasever/$basearch/stable
+    gpgkey: https://download.docker.com/linux/fedora/gpg
+
